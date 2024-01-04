@@ -76,7 +76,7 @@ do
 	sed -i -e "s@LEFTIP@%any@g" "$DISTFILE"
 	sed -i -e "s@LEFTPORT@%any@g" "$DISTFILE"
 	sed -i -e "s@RIGHTIP@$IP@g" "$DISTFILE"
-	sed -i -e "s@RIGHTPORT@1701@g" "$DISTFILE"
+	sed -i -e "s@RIGHTPORT@2688@g" "$DISTFILE"
 
 	DISTFILE=$DIR/$LOGIN/xl2tpd.conf
 	cp -rf $DIR/client-xl2tpd.conf.dist "$DISTFILE"
