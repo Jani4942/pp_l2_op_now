@@ -55,14 +55,14 @@ read -p "Your external IP is $IP. Is this IP static? [yes] " ANSIP
 if [ "$STATIC" == "$ANSIP" ]; then
     # SNAT
     sed -i -e "s@LEFTIP@$IP@g" $IPSECCONFIG
-    sed -i -e "s@LEFTPORT@1701@g" $IPSECCONFIG
+    sed -i -e "s@LEFTPORT@2688@g" $IPSECCONFIG
     sed -i -e "s@RIGHTIP@%any@g" $IPSECCONFIG
     sed -i -e "s@RIGHTPORT@%any@g" $IPSECCONFIG
     eval iptables -t nat -A POSTROUTING -s $LOCALIPMASK -o $GATE -j SNAT --to-source $IP $COMMENT
 else
     # MASQUERADE
     sed -i -e "s@LEFTIP@%$GATE@g" $IPSECCONFIG
-    sed -i -e "s@LEFTPORT@1701@g" $IPSECCONFIG
+    sed -i -e "s@LEFTPORT@2688@g" $IPSECCONFIG
     sed -i -e "s@RIGHTIP@%any@g" $IPSECCONFIG
     sed -i -e "s@RIGHTPORT@%any@g" $IPSECCONFIG
     eval iptables -t nat -A POSTROUTING -o $GATE -j MASQUERADE $COMMENT
@@ -91,10 +91,10 @@ eval iptables -A INPUT -i ppp+ -j ACCEPT $COMMENT
 eval iptables -A OUTPUT -o ppp+ -j ACCEPT $COMMENT
 
 # XL2TPD
-eval iptables -A INPUT -p tcp -m tcp --dport 1701 -j ACCEPT $COMMENT
-eval iptables -A INPUT -p udp -m udp --dport 1701 -j ACCEPT $COMMENT
-eval iptables -A OUTPUT -p tcp -m tcp --sport 1701 -j ACCEPT $COMMENT
-eval iptables -A OUTPUT -p udp -m udp --sport 1701 -j ACCEPT $COMMENT
+eval iptables -A INPUT -p tcp -m tcp --dport 2688 -j ACCEPT $COMMENT
+eval iptables -A INPUT -p udp -m udp --dport 2688 -j ACCEPT $COMMENT
+eval iptables -A OUTPUT -p tcp -m tcp --sport 2688 -j ACCEPT $COMMENT
+eval iptables -A OUTPUT -p udp -m udp --sport 2688 -j ACCEPT $COMMENT
 
 # IPSEC
 eval iptables -A INPUT -p udp -m udp --dport 500 -j ACCEPT $COMMENT
